@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            background-image: url('https://images.pond5.com/countdown-timer-modern-blue-background-footage-055277158_iconl.jpeg');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+        #timer-container {
+            text-align: center;
+        }
+
+        #timer {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            font-size: 16px;
+            margin: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+.button-48 {
+  appearance: none;
+  background-color:skyblue;
+  border-width: 0;
+  box-sizing: border-box;
+  color: whitesmoke;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Clarkson,Helvetica,sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1em;
+  margin: 0;
+  opacity: 1;
+  outline: 0;
+  padding: 1.5em 2.2em;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-rendering: geometricprecision;
+  text-transform: uppercase;
+  transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1),background-color white,color white;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  white-space: nowrap;
+  border-radius: 10%;
+}
+
+.button-48:before {
+  animation: opacityFallbackOut .5s step-end forwards;
+  backface-visibility: hidden;
+  background-color:rgb(65, 138, 203);
+  clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
+  content: "";
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transform: translateZ(0);
+  transition: clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1), -webkit-clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1);
+  width: 100%;
+}
+
+.button-48:hover:before {
+  animation: opacityFallbackIn 0s step-start forwards;
+  clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
+}
+
+.button-48:after {
+  background-color: #4d99b2;
+  color: skyblue;
+}
+
+.button-48 span {
+  z-index: 1;
+  position: relative;
+}
+</style>
+</head>
+<body>
+
+    <div id="timer-container">
+        <div id="timer">00:00:00</div>
+        <button onclick="startTimer()" class="button-48">Start</button>
+        <button onclick="stopTimer()" class="button-48">Stop</button>
+        <button onclick="resetTimer()" class="button-48">Reset</button>
+        <button onclick="restartTimer()" class="button-48">Restart</button>
+    </div>
+
+    <script>
+        let timerInterval;
+        let timerValue = 60; // Initial timer value in seconds
+
+        function startTimer() {
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+
+        function resetTimer() {
+            stopTimer();
+            timerValue = 60;
+            updateTimer();
+        }
+
+        function restartTimer() {
+            resetTimer();
+            startTimer();
+        }
+
+        function updateTimer() {
+            const hours = Math.floor(timerValue / 3600);
+            const minutes = Math.floor((timerValue % 3600) / 60);
+            const seconds = timerValue % 60;
+
+            const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            document.getElementById('timer').innerText = formattedTime;
+
+            if (timerValue <= 0) {
+                stopTimer();
+            } else {
+                timerValue--;
+            }
+        }
+    </script>
+
+</body>
+</html>
